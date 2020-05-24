@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>ModelQuestionPaper</title>
+        <% include ../include/head %>
+    </head>
+    <body>
+        <% include ../include/nev %>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <form class="mt-4" action="/mqpaper" method="POST" role="form" enctype="multipart/form-data" >
+         
+          <p class="class2">
+             <label >Subject:</label>
+             <input type="text" name="usubject"required >
+             <label >Year:</label>
+             <input type="number" name="uyear" required>
+             <br>
+             <label >File Upload:</label>
+             <input type="file" name="file" id="input-files" class="form-control-file border" required>
+             <input type="submit" name="submit"  >
+          </p>
+          
+        </form>
+
+
+            <% include ../include/footer %>
+    <% include ../include/script %>
+    </body>
+    
+</html>

@@ -1,12 +1,16 @@
 var express = require('express');
-var multer = require('multer')
+var multer = require('multer');
 var libModel = require('../modules/library');
+var paperModel = require('../modules/mqpaper');
+
 var router = express.Router();
-var library =libModel.find({});
-var path = require('path')
+
+var paperlibrary=paperModel.find({});
+var path = require('path');
 
 
 router.use(express.static(__dirname+"./public/"));
+
 
 // var Storage= multer.diskStorage({
 //   destination:"./public/uploads/",
@@ -14,7 +18,7 @@ router.use(express.static(__dirname+"./public/"));
 //     cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
 //   }
 // });
-
+/// storage 1
 var Storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/uploads/');
@@ -33,6 +37,12 @@ var Storage = multer.diskStorage({
 var upload = multer({
   storage:Storage
 }).single('file');
+
+
+
+
+
+
 
 
 
@@ -68,7 +78,6 @@ router.post('/upload',upload, function(req, res, next) {
 
     res.render('upload',{success});
     
- 
 });
 
 
@@ -93,7 +102,10 @@ router.post('/search', function(req, res, next) {
   });
  
 });
-
+ /// model question paper
+ router.get('/mqp', function(req, res, next) {
+  res.render('mqp');
+});
 
 module.exports = router;
 

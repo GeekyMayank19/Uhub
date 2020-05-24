@@ -3,14 +3,12 @@ mongoose.connect('mongodb://localhost:27017/webdata', {useNewUrlParser: true});
 var conn =mongoose.Collection;
 
 var paperSchema =new mongoose.Schema({
-    select:String,
     subject: String,
-    topic:String,
-    email: String,
-    imagename:String
+    year:Number,
+    docdow:String
 
 
 });
 
-var paperModel = mongoose.model('Model Question Paper', paperSchema);
+var paperModel = mongoose.model('questionpaper', paperSchema);
 module.exports=paperModel;
