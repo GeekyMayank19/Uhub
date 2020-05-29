@@ -4,8 +4,6 @@ var libModel = require('../modules/library');
 var paperModel = require('../modules/mqpaper');
 
 var router = express.Router();
-
-var paperlibrary=paperModel.find({});
 var path = require('path');
 
 
@@ -39,11 +37,53 @@ var upload = multer({
 }).single('file');
 
 
+//storage 2
+var Storage2 = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/qustionpaper/');
+  },
+  filename: function (req, file, cb) {
+    var originalname = file.originalname;
+    var extension = originalname.split(".");
+    filename = (null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
+    cb(null, filename);
+    console.log(extension)
+    console.log(originalname)
+    
+  }
+});
+
+var upload2 = multer({
+  storage:Storage2
+}).single('file');
+
+router.get('/mqpupload', function(req, res, next) {
+ 
+  res.render('mqpupload', { title: 'Files to download'});
+
+});
 
 
+router.post('/mqpupload',upload2, function(req, res, next) {
+  var imageFile=req.file.filename;
+
+  var fileDetails = new paperModel({
+    subject: req.body.usubject,
+    year:req.body.uyear,   
+    docdow: imageFile
+  });
+
+  if(imageFile==''){
+    res.sends("please select the file ")
+  }
+  fileDetails.save();
+
+    res.render('mqpupload');
+    
+});
 
 
-
+////////////////////////////////////////////////
 
 
 router.get('/', function(req, res, next) {
@@ -103,9 +143,30 @@ router.post('/search', function(req, res, next) {
  
 });
  /// model question paper
- router.get('/mqp', function(req, res, next) {
+
+router.get('/mqp', function(req, res, next) {
   res.render('mqp');
 });
+
+
+router.get('/mqpsearch', function(req, res, next) {
+  res.render('mqpsearch');
+});
+router.post('/mqpsearch', function(req, res, next) {
+  var filrSubject = req.body.fltrsub;
+
+
+  var libraryfilter =paperModel.find({"subject" : filrSubject});
+
+  libraryfilter.exec(function(err,data){
+    if(err) throw err;
+    res.render('mqpsearch', { records:data });
+
+  });
+ 
+});
+
+ 
 
 module.exports = router;
 

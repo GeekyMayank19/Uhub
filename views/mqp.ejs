@@ -2,23 +2,7 @@
     <head>
         <title>ModelQuestionPaper</title>
         <% include ../include/head %>
-        <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+        
     </head>
     <body>
         <% include ../include/nev %>
@@ -28,28 +12,41 @@ tr:nth-child(even) {
         <br>
         
         
-        <h2>HTML Table</h2>
-
-<table>
-  <tr style="font-size: large;">
-    <th>Subject</th>
-    <th>Year</th>
-    <th>Download File</th>
-  </tr>
-  <tr>
-    <td>sylabus</td>
-    <td>second Year</td>
-    <td> <p> <a href="./qustionpaper/B.Tech. 2nd Year Mechanical Engg AICTE Model Curriculum 2019-20.pdf">downloading link</a>.</p></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  
-</table>
-      
-<br>
+        <div class="slide-one-item home-slider owl-carousel">
+          <div class="site-blocks-cover" style="background-image: url(images/hero_b1_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+            <div class="container">
+              <div class="row align-items-center justify-content-center">
+                <div class="col-md-7 text-center" data-aos="fade">
+                  <h1><strong>Search n</strong> learn</h1> 
+                  
+                  
+                  <form autocomplete="off" action="/mqpsearch" method="post">
+                    <div class="autocomplete" style="width:300px;"> 
+                     <input id="myInput" style="text-align: center;" type="text" name="fltrsub" placeholder="Enter Subject Name" >
+                    </div>
+                     <input type="submit" name="submit" >
+                  </form>
+                  <br>
+                  <br>
+                  <br>
+                  <thead>
+                    <!-- <table style="color: white; font: weight 100; " class="table">
+                      <thead>
+                      <tr>
+                        <th >Subject</th>
+                        <th >Topic</th>
+                        <th >Download File</th>
+                      </tr>
+                    </thead>
+                    
+                                       
+                  </table> -->
+    
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div> 
         <br>
         <br>
         <br>
