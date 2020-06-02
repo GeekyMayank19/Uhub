@@ -167,6 +167,38 @@ router.post('/mqpsearch', function(req, res, next) {
 });
 
  
+ router.get('/ebooksearch', function(req, res, next) {
+  ebookdata.exec(function(err,data){
+    if(err) throw err;
+    res.render('ebooksearch', { records:data });
+
+  });
+
+});
+
+
+router.post('/ebooksearch', function(req, res, next) {
+  var filrSubject = req.body.fltrsub;
+
+
+  var libraryfilter =ebookModel.find({"subject" : filrSubject});
+
+  libraryfilter.exec(function(err,data){
+    if(err) throw err;
+    res.render('ebooksearch', { records:data });
+
+  });
+
+});
+
+
+
+
+
+
+
+
+router.get('/', function(req, res, next) {
 
 module.exports = router;
 
