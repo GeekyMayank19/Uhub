@@ -2,11 +2,11 @@ var express = require('express');
 var multer = require('multer');
 var libModel = require('../modules/library');
 var paperModel = require('../modules/mqpaper');
-var ebookModel = require('../modules/ebook')
 
 var router = express.Router();
 var path = require('path');
-var ebookdata =ebookModel.find({});
+
+
 router.use(express.static(__dirname+"./public/"));
 
 
@@ -59,7 +59,7 @@ var upload2 = multer({
 
 router.get('/mqpupload', function(req, res, next) {
  
-  res.render('mqpupload');
+  res.render('mqpupload', { title: 'Files to download'});
 
 });
 
@@ -83,61 +83,7 @@ router.post('/mqpupload',upload2, function(req, res, next) {
 });
 
 
-////////////storage 2//////////////////////
-
-
-/////////////storage 3 for ebooks/////////
-
-
-var Storage3 = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/ebooks/');
-  },
-  filename: function (req, file, cb) {
-    var originalname = file.originalname;
-    var extension = originalname.split(".");
-    filename = (null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
-    cb(null, filename);
-    console.log(extension)
-    console.log(originalname)
-    
-  }
-});
-
-var upload3 = multer({
-  storage:Storage3
-}).single('file');
-
-router.get('/ebookupload', function(req, res, next) {
- 
-  res.render('ebookupload');
-
-});
-
-
-router.post('/ebookupload',upload3, function(req, res, next) {
-  var imageFile=req.file.filename;
-
-  var fileDetails = new ebookModel({
-    subject: req.body.usubject,  
-    bookname:req.body.ubookname,
-    ebookname: imageFile
-  });
-
-  if(imageFile==''){
-    res.sends("please select the file ")
-  }
-  fileDetails.save();
-
-    res.render('ebookupload');
-    
-});
-
-/////////////storage 3 for ebooks/////////
-
-
-
-
+////////////////////////////////////////////////
 
 
 router.get('/', function(req, res, next) {
@@ -220,40 +166,7 @@ router.post('/mqpsearch', function(req, res, next) {
  
 });
 
- /////////////ebooks//////////////////
-
-// router.get('/ebooks', function(req, res, next) {
-  
-//   res.render('ebooks');
-// });
-
-
-router.get('/ebooksearch', function(req, res, next) {
-  ebookdata.exec(function(err,data){
-    if(err) throw err;
-    res.render('ebooksearch', { records:data });
-
-  });
-
-});
-
-
-router.post('/ebooksearch', function(req, res, next) {
-  var filrSubject = req.body.fltrsub;
-
-
-  var libraryfilter =ebookModel.find({"subject" : filrSubject});
-
-  libraryfilter.exec(function(err,data){
-    if(err) throw err;
-    res.render('ebooksearch', { records:data });
-
-  });
  
-});
-
-////////////////////////////////
-
 
 module.exports = router;
 
