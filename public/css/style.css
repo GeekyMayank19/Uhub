@@ -480,9 +480,12 @@ a {
 .site-blocks-cover {
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center; }
+  background-position: center center;
+  
+ }
   .site-blocks-cover.overlay {
-    position: relative; }
+    position: relative;
+   }
     .site-blocks-cover.overlay:before {
       position: absolute;
       content: "";
@@ -490,13 +493,15 @@ a {
       bottom: 0;
       right: 0;
       top: 0;
-      background: rgba(0, 0, 0, 0.4); }
+      background: rgba(0, 0, 0, 0.4);
+      }
   .site-blocks-cover, .site-blocks-cover .row {
     min-height: 600px;
     height: calc(100vh); }
   .site-blocks-cover.inner-page, .site-blocks-cover.inner-page .row {
     min-height: 600px;
-    height: calc(40vh); }
+    height: calc(40vh); 
+    }
   .site-blocks-cover .sub-text {
     font-size: 1.1rem;
     text-transform: uppercase;
