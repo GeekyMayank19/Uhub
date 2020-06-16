@@ -21,20 +21,42 @@ var Storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/uploads/');
   },
-  filename: function (req, file, cb) {
+  filename: function (req,res, file, cb) {
     var originalname = file.originalname;
-    var extension = originalname.split(".");
+    var ext = path.extname(originalname);
     filename = (null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
     cb(null, filename);
-    console.log(extension)
-    console.log(originalname)
-    
+    console.log(originalname);
+    if (ext !== '.png' && ext !== 'pdf' && ext !== '.gif' && ext !== '.jpeg') {
+				return res.render("please choose valide formate file");
+			}
   }
 });
 
 var upload = multer({
   storage:Storage
 }).single('file');
+
+router.post('/upload',upload, function(req, res, next) {
+  var imageFile=req.file.filename;
+  var success =req.file.filename+ " uploaded successfully";
+
+  var fileDetails = new libModel({
+    select:req.body.select,
+    subject: req.body.usubject,
+    topic:req.body.utopic,
+    email: req.body.uemail,   
+    imagename: imageFile
+  });
+
+  if(imageFile==''){
+    res.sends("please select the file ")
+  }
+  fileDetails.save();
+
+    res.render('upload',{success});
+    
+});
 
 
 //storage 2
@@ -153,26 +175,7 @@ router.get('/upload', function(req, res, next) {
 });
 
 
-router.post('/upload',upload, function(req, res, next) {
-  var imageFile=req.file.filename;
-  var success =req.file.filename+ " uploaded successfully";
 
-  var fileDetails = new libModel({
-    select:req.body.select,
-    subject: req.body.usubject,
-    topic:req.body.utopic,
-    email: req.body.uemail,   
-    imagename: imageFile
-  });
-
-  if(imageFile==''){
-    res.sends("please select the file ")
-  }
-  fileDetails.save();
-
-    res.render('upload',{success});
-    
-});
 
 
 router.get('/search/', function(req, res, next) {
