@@ -256,6 +256,18 @@ router.post('/ebooksearch', function(req, res, next) {
 });
 
 ////////////////////////////////
+///test the blog page 
+router.get('/blogpage', function(req, res, next) {
+  res.render('blogpage');
+});
+
+
+
+
+
+
+
+
 
 
 module.exports = router;
