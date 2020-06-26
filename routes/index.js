@@ -21,20 +21,25 @@ var Storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/uploads/');
   },
-  filename: function (req,res, file, cb) {
+  
+  filename: function (req, file, cb) {
     var originalname = file.originalname;
     var ext = path.extname(originalname);
     filename = (null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
     cb(null, filename);
     console.log(originalname);
-    if (ext !== '.png' && ext !== 'pdf' && ext !== '.gif' && ext !== '.jpeg') {
-				return res.render("please choose valide formate file");
-			}
+  
   }
 });
 
 var upload = multer({
-  storage:Storage
+  storage:Storage,fileFilter: function (req, file, callback) {
+    var ext = path.extname(file.originalname);
+    if(ext !== '.doc' && ext !== '.DOC' && ext !== '.PDF' && ext !== '.pdf') {
+        return callback(new Error('Only images are allowed'))
+    }
+    callback(null, true)
+}
 }).single('file');
 
 router.post('/upload',upload, function(req, res, next) {
